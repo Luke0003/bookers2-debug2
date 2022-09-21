@@ -25,4 +25,18 @@ class User < ApplicationRecord
   def followed_by?(user)
     reverse_of_relationships.exists?(following_id: user.id)
   end
+
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @user = User.where("name Like?", "#{word}")
+    elsif search == "forward_match"
+      @user = User.where("name LIKE?", "#{word}%")
+    elsif search == "backward_macth"
+      @user = User.where("name LIKE?", "%#{word}")
+    elsif
+      @user = User.where("name LIKE?", "%#{word}%")
+    else
+      @user == User.all
+    end
+  end
 end
