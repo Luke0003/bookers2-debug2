@@ -1,7 +1,10 @@
 class BooksController < ApplicationController
   before_action :ensure_correct_user, only: [:edit]
+
   def show
     @book = Book.find(params[:id])
+    view_counts = current_user.view_counts.new(book_id: @book.id)
+    view_counts.save
     @user = @book.user
     @book_comment = BookComment.new
   end
